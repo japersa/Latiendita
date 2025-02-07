@@ -4,10 +4,10 @@ namespace Latiendita.Repositories
 {
     public interface IProductRepository
     {
-        Task<Product> GetProductByIdAsync(int id);
-        Task<IEnumerable<Product>> GetProductsAsync();
-        Task AddProductAsync(Product product);
-        Task UpdateProductAsync(int Id,Product product);
-        Task DeleteProductAsync(int Id);
+        Task<Product> GetByIdAsync(int id);
+        Task<IEnumerable<Product>> GetAsync();
+        Task AddAsync(Product product);
+        Task UpdateAsync(int Id,Product product);
+        Task DeleteAsync(int Id);
     }
 }
