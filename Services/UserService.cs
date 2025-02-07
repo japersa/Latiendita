@@ -1,6 +1,5 @@
 using Latiendita.Dtos;
 using Latiendita.Models;
-using Latiendita.Repositories;
 
 namespace Latiendita.Services
 {
@@ -10,48 +9,26 @@ namespace Latiendita.Services
 
         public UserService(IUserRepository userRepository)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<UserDto>> GetUsersAsync()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            var users = await _userRepository.GetUsersAsync();
-            // Mapear cada User a UserDto manualmente
-            var userDtos = users.Select(user => new UserDto
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                // Mapear otras propiedades si es necesario
-            }).ToList();
-            return userDtos;
+            return await _userRepository.GetUsersAsync();
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
-            if (user == null) return null;
-
-            var userDto = new UserDto
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                // Mapear otras propiedades si es necesario
-            };
-            return userDto;
+         return await _userRepository.GetUserByIdAsync(id);   
         }
 
         public async Task CreateUserAsync(UserDto userDto)
         {
-            if (userDto == null) throw new ArgumentNullException(nameof(userDto));
-
             var user = new User
             {
-                Id = userDto.Id,
                 Name = userDto.Name,
-                Email = userDto.Email,
-                // Mapear otras propiedades si es necesario
+                UserName = userDto.UserName,
+                Password = userDto.Password
             };
 
             await _userRepository.AddUserAsync(user);
@@ -59,14 +36,11 @@ namespace Latiendita.Services
 
         public async Task UpdateUserAsync(int id, UserDto userDto)
         {
-            if (userDto == null) throw new ArgumentNullException(nameof(userDto));
-
             var user = new User
             {
-                Id = userDto.Id,
                 Name = userDto.Name,
-                Email = userDto.Email,
-                // Mapear otras propiedades si es necesario
+                UserName = userDto.UserName,
+                Password = userDto.Password
             };
 
             await _userRepository.UpdateUserAsync(id, user);

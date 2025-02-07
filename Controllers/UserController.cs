@@ -19,14 +19,14 @@ namespace Latiendita.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var users = await _userService.GetAllUsersAsync();
+            var users = await _userService.GetUsersAsync();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var user = await _userService.GetByIdAsync(id);
+            var user = await _userService.GetUserByIdAsync(id);
             if (user == null) return NotFound();
             return Ok(user);
         }
@@ -34,7 +34,7 @@ namespace Latiendita.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(UserDto userDto)
         {
-            await _userService.AddUserAsync(userDto);
+            await _userService.CreateUserAsync(userDto);
             return CreatedAtAction(nameof(GetById), new { id = userDto.Id }, userDto);
         }
 
