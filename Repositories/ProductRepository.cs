@@ -4,15 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Latiendita.Repositories
 {
-    public interface IProductRepository
-    {
-        Task<IEnumerable<Product>> GetProductsAsync();
-        Task<Product> GetProductByIdAsync(int id);
-        Task AddProductAsync(Product product);
-        Task UpdateProductAsync(int id, Product product);
-        Task DeleteProductAsync(int id);
-    }
-
     public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
@@ -60,7 +51,7 @@ namespace Latiendita.Repositories
             }
 
             var existingProduct = await GetProductByIdAsync(id);
-            
+
             _context.Entry(existingProduct).CurrentValues.SetValues(product);
             await _context.SaveChangesAsync();
         }
@@ -71,5 +62,12 @@ namespace Latiendita.Repositories
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Product>> SearchAsync(string query)
+        {
+            return await _context.Products
+                .Where(p => p.Name.Contains(query))
+                .ToListAsync();
+        }
+
     }
 }

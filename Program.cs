@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<IProductRepository, ProductoRespository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 var app = builder.Build();
 
@@ -17,5 +17,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapGet("/search", async (string query, ISearchService searchService) =>
+{
+    var results = await searchService.SearchProductsAsync(query);
+    return Results.Ok(results);
+});
 
 app.Run();
