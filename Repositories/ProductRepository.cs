@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Latiendita.Repositories
 {
-    public class ProductRepository : IProductRepository
+        public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
 
@@ -13,12 +13,12 @@ namespace Latiendita.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<IEnumerable<Product>> GetAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null)
@@ -28,7 +28,7 @@ namespace Latiendita.Repositories
             return product;
         }
 
-        public async Task AddAsync(Product product)
+        public async Task AddProductAsync(Product product)
         {
             if (product == null)
             {
@@ -38,7 +38,7 @@ namespace Latiendita.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(int id, Product product)
+        public async Task UpdateProductAsync(int id, Product product)
         {
             if (product == null)
             {
@@ -50,15 +50,15 @@ namespace Latiendita.Repositories
                 throw new ArgumentException("Product ID mismatch");
             }
 
-            var existingProduct = await GetByIdAsync(id);
+            var existingProduct = await GetProductByIdAsync(id);
             
             _context.Entry(existingProduct).CurrentValues.SetValues(product);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteProductAsync(int id)
         {
-            var product = await GetByIdAsync(id);
+            var product = await GetProductByIdAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
