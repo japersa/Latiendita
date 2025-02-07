@@ -1,11 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Controllers",
     "\\Dtos",
     "\\Dtos\\Product",
     "\\Models",
+    "\\Properties",
     "\\Repositories"
   ],
-  "SelectedNode": "\\Data",
+  "SelectedNode": "\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
