@@ -60,7 +60,7 @@ namespace Latiendita.Repositories
             }
 
             var existingProduct = await GetProductByIdAsync(id);
-            
+
             _context.Entry(existingProduct).CurrentValues.SetValues(product);
             await _context.SaveChangesAsync();
         }
