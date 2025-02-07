@@ -1,4 +1,5 @@
-﻿using Latiendita.Models;
+﻿using Latiendita.Dtos;
+using Latiendita.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Latiendita.Controllers
@@ -8,73 +9,52 @@ namespace Latiendita.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+
         public ProductController(IProductService productService)
         {
             _productService = productService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
         {
-            var products = await _productService.GetProducts();
-            return Ok(products);
-        }
-
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchProduct([FromQuery] string query)
-        {
-            var products = await _productService.SearchProducts(query);
-            return Ok(products);
+            var (items, totalItems, totalPages) = await _productService.GetAllProductsAsync(page, size);
+            return Ok(new { items, totalItems, totalPages });
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProductById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var product = await _productService.GetProductById(id);
+            var product = await _productService.GetByIdAsync(id);
             if (product == null)
             {
-                return NotFound($"No product found with ID {id}");
+                return NotFound();
             }
             return Ok(product);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] Product product)
+        public async Task<IActionResult> Create(ProductDto productDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await _productService.AddProduct(product);
-            return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
+            await _productService.AddProductAsync(productDto);
+            return CreatedAtAction(nameof(GetById), new { id = productDto.Id }, productDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody] Product product)
+        public async Task<IActionResult> Update(int id, ProductDto productDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != product.Id)
-            {
-                return BadRequest("ID mismatch");
-            }
-            await _productService.UpdateProduct(product);
-            return NoContent();
+            await _productService.UpdateProductAsync(id, productDto);
+            return Ok(productDto);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var product = await _productService.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound($"No product found with ID {id}");
-            }
-            await _productService.DeleteProduct(id);
-            return NoContent();
+            await _productService.DeleteProductAsync(id);
+            return Ok();
         }
     }
 }
+
+
+

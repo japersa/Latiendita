@@ -1,87 +1,54 @@
-using Latiendita.Models;
+﻿using Latiendita.Dtos;
+using Latiendita.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Latiendita.Controllers
 {
     [ApiController]
-    [Route("/api/orders")]
-    public class OrderController : ControllerBase
+    [Route("api/order")]
+    public class OrdenCompraController : ControllerBase
     {
-        private readonly IOrderService _orderService;
+        private readonly IOrderService _ordenCompraService;
 
-        public OrderController(IOrderService orderService)
+        public OrdenCompraController(IOrderService ordenCompraService)
         {
-            _orderService = orderService;
+            _ordenCompraService = ordenCompraService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllOrders()
+        public async Task<IActionResult> GetAll()
         {
-            var orders = await _orderService.GetOrders();
+            var orders = await _ordenCompraService.GetAllOrdersAsync();
             return Ok(orders);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var order = await _orderService.GetOrderById(id);
-            if (order == null)
-            {
-                return NotFound($"No order found with ID {id}");
-            }
+            var order = await _ordenCompraService.GetOrderByIdAsync(id);
+            if (order == null) return NotFound();
             return Ok(order);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody] Order order)
+        public async Task<IActionResult> Create(OrderDto OrderDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var product = await _orderService.GetProductById(order.ProductId);
-            if (product == null)
-            {
-                return NotFound($"No product found with ID {order.ProductId}");
-            }
-
-            if (product.ProductDetail != null && order.Quantity > product.ProductDetail.Stock)
-            {
-                return BadRequest("Insufficient stock for this order.");
-            }
-
-            await _orderService.AddOrder(order);
-            return CreatedAtAction(nameof(GetOrderById), new { id = order.Id }, order);
+            await _ordenCompraService.CreateOrderAsync(OrderDto);
+            return CreatedAtAction(nameof(GetById), new { id = OrderDto.Id }, OrderDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrder(int id, [FromBody] Order order)
+        public async Task<IActionResult> Update(int id, OrderDto OrderDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != order.Id)
-            {
-                return BadRequest("ID mismatch");
-            }
-
-            await _orderService.UpdateOrder(order);
-            return NoContent();
+            await _ordenCompraService.UpdateOrderAsync(id, OrderDto);
+            return Ok(OrderDto);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrder(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var order = await _orderService.GetOrderById(id);
-            if (order == null)
-            {
-                return NotFound($"No order found with ID {id}");
-            }
-            await _orderService.DeleteOrder(id);
-            return NoContent();
+            await _ordenCompraService.DeleteOrderAsync(id);
+            return Ok();
         }
     }
 }

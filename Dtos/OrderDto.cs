@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Latiendita.Models;
 
-namespace Latiendita.Models
+namespace Latiendita.Dtos
 {
-    public class Order
+    public class OrderDto
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
         public int Quantity { get; set; }
+
+
     }
 }
