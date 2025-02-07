@@ -8,10 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IProductRepository, ProductRespository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

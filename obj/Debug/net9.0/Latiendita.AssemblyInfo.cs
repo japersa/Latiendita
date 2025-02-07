@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Latiendita")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24e5616c25236a450bd432ff653d908f5e44248b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d2d58eb6f5ea2d33f49674c6a31d1c51b32c6d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Latiendita")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Latiendita")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
