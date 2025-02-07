@@ -3636,23 +3636,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\USER\\.nuget\\packages\\": {},
+    "C:\\Users\\MAYE SALAS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\NET\\Latiendita\\Latiendita.csproj",
+      "projectUniqueName": "C:\\Latiendita\\Latiendita.csproj",
       "projectName": "Latiendita",
-      "projectPath": "C:\\Users\\USER\\source\\repos\\NET\\Latiendita\\Latiendita.csproj",
-      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\source\\repos\\NET\\Latiendita\\obj\\",
+      "projectPath": "C:\\Latiendita\\Latiendita.csproj",
+      "packagesPath": "C:\\Users\\MAYE SALAS\\.nuget\\packages\\",
+      "outputPath": "C:\\Latiendita\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MAYE SALAS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
