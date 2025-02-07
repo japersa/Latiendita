@@ -1,17 +1,16 @@
 ﻿using Latiendita.Dtos;
 using Latiendita.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Latiendita.Controllers
 {
     [ApiController]
     [Route("api/sale")]
-    public class FacturaVentaController : ControllerBase
+    public class SaleController : ControllerBase
     {
         private readonly ISaleService _saleService;
 
-        public FacturaVentaController(ISaleService saleService)
+        public SaleController(ISaleService saleService)
         {
             _saleService = saleService;
         }
