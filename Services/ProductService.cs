@@ -1,6 +1,6 @@
-using AppProducts.Dtos;
-using AppProducts.Models;
-using AppProducts.Repositories;
+using Latiendita.Dtos;
+using Latiendita.Models;
+using Latiendita.Repositories;
 
 namespace AppProducts.Services
 {
@@ -52,4 +52,5 @@ namespace AppProducts.Services
         
         public async Task DeleteProductAsync(int id) => await _productRepository.DeleteAsync(id);
     }
+    
 }
