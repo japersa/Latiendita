@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pipet\\Documents\\Latiendita\\Latiendita.csproj": {}
+    "C:\\Users\\pipet\\Documents\\LaTiendita\\Latiendita.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pipet\\Documents\\Latiendita\\Latiendita.csproj": {
+    "C:\\Users\\pipet\\Documents\\LaTiendita\\Latiendita.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pipet\\Documents\\Latiendita\\Latiendita.csproj",
+        "projectUniqueName": "C:\\Users\\pipet\\Documents\\LaTiendita\\Latiendita.csproj",
         "projectName": "Latiendita",
-        "projectPath": "C:\\Users\\pipet\\Documents\\Latiendita\\Latiendita.csproj",
+        "projectPath": "C:\\Users\\pipet\\Documents\\LaTiendita\\Latiendita.csproj",
         "packagesPath": "C:\\Users\\pipet\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pipet\\Documents\\Latiendita\\obj\\",
+        "outputPath": "C:\\Users\\pipet\\Documents\\LaTiendita\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,7 +50,21 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.1, )"
             }
