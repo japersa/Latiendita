@@ -62,6 +62,7 @@ namespace Latiendita.Repositories
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
+
         public async Task<IEnumerable<Product>> SearchAsync(string query)
         {
             return await _context.Products
@@ -69,5 +70,22 @@ namespace Latiendita.Repositories
                 .ToListAsync();
         }
 
+        public async Task<(IEnumerable<Product> items, int totalItems, int totalPages)> GetAllAsync(int page, int size)
+        {
+            if (page <= 0 || size <= 0)
+            {
+                throw new ArgumentException("Page and size must be greater than zero.");
+            }
+
+            var totalItems = await _context.Products.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)size);
+
+            var items = await _context.Products
+                .Skip((page - 1) * size)
+                .Take(size)
+                .ToListAsync();
+
+            return (items, totalItems, totalPages);
+        }
     }
 }
