@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\VICTOR\\Desktop\\Latiendita\\Latiendita.csproj": {}
+    "C:\\Users\\DELL\\documents\\latiendita\\Latiendita.csproj": {}
   },
   "projects": {
-    "C:\\Users\\VICTOR\\Desktop\\Latiendita\\Latiendita.csproj": {
+    "C:\\Users\\DELL\\documents\\latiendita\\Latiendita.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\VICTOR\\Desktop\\Latiendita\\Latiendita.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\documents\\latiendita\\Latiendita.csproj",
         "projectName": "Latiendita",
-        "projectPath": "C:\\Users\\VICTOR\\Desktop\\Latiendita\\Latiendita.csproj",
-        "packagesPath": "C:\\Users\\VICTOR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\VICTOR\\Desktop\\Latiendita\\obj\\",
+        "projectPath": "C:\\Users\\DELL\\documents\\latiendita\\Latiendita.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DELL\\documents\\latiendita\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\VICTOR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
