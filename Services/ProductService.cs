@@ -2,7 +2,7 @@ using Latiendita.Dtos;
 using Latiendita.Models;
 using Latiendita.Repositories;
 
-namespace AppProducts.Services
+namespace Latiendita.Services
 {
     public class ProductService : IProductService
     {
@@ -13,8 +13,8 @@ namespace AppProducts.Services
             _productRepository = productRepository;
         }
 
-        public async Task<(IEnumerable<Product> items, int totalItems, int totalPages)> GetAllProductsAsync(int page, int size) => await _productRepository.GetAllAsync(page, size);
-        public async Task<Product?> GetByIdAsync(int id) => await _productRepository.GetByIdAsync(id);
+        public async Task<IEnumerable<Product>> GetAllAsync() => await _productRepository.GetAsync();
+        public async Task<Product> GetByIdAsync(int id) => await _productRepository.GetByIdAsync(id);
         public async Task AddAsync(ProductDto productDto) 
         {
             var product = new Product
@@ -47,7 +47,7 @@ namespace AppProducts.Services
                     Stock = productDto.ProductDetail.Stock,
                     Weight = productDto.ProductDetail.Weight,
                     Dimensions = productDto.ProductDetail.Dimensions
-                }
+                } 
             };
             await _productRepository.UpdateAsync(id, product);
         }
