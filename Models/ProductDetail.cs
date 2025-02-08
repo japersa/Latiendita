@@ -2,12 +2,14 @@ namespace Latiendita.Models
 {
     public class ProductDetail
     {
-        public int Id { get; set; }
-        public required string Name { get; set; }
-        public decimal Price { get; set; }
-        public int CategoryId { get; set; }
-        public required Category Category { get; set; }
-        public required string Description { get; set; }
-        public required string Image { get; set; }
+        public int Id { get; set; } // Si usas Entity Framework
+        public string Name { get; set; } = string.Empty;
+        public string Image { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public int Stock { get; set; }
+        public decimal Weight { get; set; }
+        public string Dimensions { get; set; } = string.Empty;
+        public int CategoryId { get; set; } // Relación con Categoría
+        public Category Category { get; set; } = null!; // Relación con Categoría
     }
 }

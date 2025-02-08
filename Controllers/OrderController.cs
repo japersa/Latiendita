@@ -31,7 +31,7 @@ namespace Latiendita.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(OrderDto OrderDto)
+        public async Task<IActionResult> Create([FromBody]OrderDto OrderDto)
         {
             await _orderService.CreateOrderAsync(OrderDto);
             return CreatedAtAction(nameof(GetById), new { id = OrderDto.Id }, OrderDto);

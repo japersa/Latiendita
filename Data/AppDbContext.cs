@@ -13,7 +13,5 @@ namespace Latiendita.Data
         public DbSet<ProductDetail> ProducDetails{ get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<User> Users { get; set; }
- 
- 
     }
 }

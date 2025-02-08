@@ -87,5 +87,10 @@ namespace Latiendita.Repositories
 
             return (items, totalItems, totalPages);
         }
+
+        public Task<Product> GetByIdAsync(int productId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

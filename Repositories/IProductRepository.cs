@@ -11,6 +11,7 @@ namespace Latiendita.Repositories
         Task UpdateProductAsync(int Id,Product product);
         Task DeleteProductAsync(int Id);
         Task<IEnumerable<Product>> SearchAsync(string query);
+        Task<Product> GetByIdAsync(int productId);
     }
 
 }

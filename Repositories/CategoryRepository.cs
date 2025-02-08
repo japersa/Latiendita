@@ -15,7 +15,7 @@ namespace Latiendita.Repositories
         public async Task<IEnumerable<Category>> GetAllAsync() => await _context.Categories.ToListAsync();
 
         public async Task<Category?> GetByIdAsync(int id) => await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
-
+        
         public async Task AddAsync(Category category)
         {
             _context.Categories.Add(category);
