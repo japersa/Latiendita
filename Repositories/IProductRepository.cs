@@ -13,4 +13,4 @@ namespace Latiendita.Repositories
         Task<IEnumerable<Product>> SearchAsync(string query);
     }
 
-   
+}
