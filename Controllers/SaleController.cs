@@ -1,54 +1,53 @@
 ﻿using Latiendita.Dtos;
 using Latiendita.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Latiendita.Controllers
 {
     [ApiController]
     [Route("api/sale")]
-    public class FacturaVentaController : ControllerBase
+    public class SaleController : ControllerBase
     {
-        private readonly IFacturaVentaService _facturaVentaService;
+        private readonly ISaleService _saleService;
 
-        public FacturaVentaController(IFacturaVentaService facturaVentaService)
+        public SaleController(ISaleService saleService)
         {
-            _facturaVentaService = facturaVentaService;
+            _saleService = saleService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var invoices = await _facturaVentaService.GetAllInvoicesAsync();
+            var invoices = await _saleService.GetAllSalesAsync();
             return Ok(invoices);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var invoice = await _facturaVentaService.GetByIdAsync(id);
+            var invoice = await _saleService.GetSaleByIdAsync(id);
             if (invoice == null) return NotFound();
             return Ok(invoice);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(FacturaVentaDto facturaVentaDto)
+        public async Task<IActionResult> Create(SaleDto saleDto)
         {
-            await _facturaVentaService.AddInvoiceAsync(facturaVentaDto);
-            return CreatedAtAction(nameof(GetById), new { id = facturaVentaDto.Id }, facturaVentaDto);
+            await _saleService.CreateSaleAsync(saleDto);
+            return CreatedAtAction(nameof(GetById), new { id = saleDto.Id }, saleDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, FacturaVentaDto facturaVentaDto)
+        public async Task<IActionResult> Update(int id, SaleDto saleDto)
         {
-            await _facturaVentaService.UpdateInvoiceAsync(id, facturaVentaDto);
-            return Ok(facturaVentaDto);
+            await _saleService.UpdateSaleAsync(id, saleDto);
+            return Ok(saleDto);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _facturaVentaService.DeleteInvoiceAsync(id);
+            await _saleService.DeleteSaleAsync(id);
             return Ok();
         }
     }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Latiendita.Repositories
 {
-    public class ProductRepository : IProductRepository
+        public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
 
