@@ -8,7 +8,7 @@ namespace Latiendita.Controllers
     [Route("/api/products")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly  IProductService _productService;
 
         public ProductController(IProductService productService)
         {
@@ -16,10 +16,10 @@ namespace Latiendita.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int size = 10)
+        public async Task<IActionResult> GetAll()
         {
-            var (items, totalItems, totalPages) = await _productService.GetAllProductsAsync(page, size);
-            return Ok(new { items, totalItems, totalPages });
+            var products = await _productService.GetAllAsync();
+            return Ok(products);
         }
 
         [HttpGet("{id}")]
@@ -36,21 +36,21 @@ namespace Latiendita.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductDto productDto)
         {
-            await _productService.AddProductAsync(productDto);
+            await _productService.AddAsync(productDto);
             return CreatedAtAction(nameof(GetById), new { id = productDto.Id }, productDto);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, ProductDto productDto)
         {
-            await _productService.UpdateProductAsync(id, productDto);
+            await _productService.UpdateAsync(id, productDto);
             return Ok(productDto);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _productService.DeleteProductAsync(id);
+            await _productService.DeleteAsync(id);
             return Ok();
         }
     }
