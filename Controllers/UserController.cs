@@ -1,10 +1,12 @@
-using Latiendita.Models;
+﻿using Latiendita.Dtos;
+using Latiendita.Services;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Latiendita.Controllers
 {
     [ApiController]
-    [Route("/api/users")]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -15,67 +17,41 @@ namespace Latiendita.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAll()
         {
-            var users = await _userService.GetUsers();
-            return Ok(users);
-        }
-
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchUser([FromQuery] string query)
-        {
-            var users = await _userService.SearchUsers(query);
+            var users = await _userService.GetAllUsersAsync();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var user = await _userService.GetUserById(id);
-            if (user == null)
-            {
-                return NotFound($"No user found with ID {id}");
-            }
+            var user = await _userService.GetByIdAsync(id);
+            if (user == null) return NotFound();
             return Ok(user);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] User user)
+        public async Task<IActionResult> Create(UserDto userDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await _userService.AddUser(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+            await _userService.AddUserAsync(userDto);
+            return CreatedAtAction(nameof(GetById), new { id = userDto.Id }, userDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
+        public async Task<IActionResult> Update(int id, UserDto userDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != user.Id)
-            {
-                return BadRequest("ID mismatch");
-            }
-            await _userService.UpdateUser(user);
-            return NoContent();
+            await _userService.UpdateUserAsync(id, userDto);
+            return Ok(userDto);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var user = await _userService.GetUserById(id);
-            if (user == null)
-            {
-                return NotFound($"No user found with ID {id}");
-            }
-            await _userService.DeleteUser(id);
-            return NoContent();
+            await _userService.DeleteUserAsync(id);
+            return Ok();
         }
     }
 }
+
+

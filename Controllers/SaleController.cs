@@ -1,87 +1,57 @@
-using Latiendita.Models;
+﻿using Latiendita.Dtos;
+using Latiendita.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Latiendita.Controllers
 {
     [ApiController]
-    [Route("/api/sales")]
-    public class SaleController : ControllerBase
+    [Route("api/sale")]
+    public class FacturaVentaController : ControllerBase
     {
-        private readonly ISaleService _saleService;
+        private readonly IFacturaVentaService _facturaVentaService;
 
-        public SaleController(ISaleService saleService)
+        public FacturaVentaController(IFacturaVentaService facturaVentaService)
         {
-            _saleService = saleService;
+            _facturaVentaService = facturaVentaService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllSales()
+        public async Task<IActionResult> GetAll()
         {
-            var sales = await _saleService.GetSales();
-            return Ok(sales);
+            var invoices = await _facturaVentaService.GetAllInvoicesAsync();
+            return Ok(invoices);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSaleById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var sale = await _saleService.GetSaleById(id);
-            if (sale == null)
-            {
-                return NotFound($"No sale found with ID {id}");
-            }
-            return Ok(sale);
+            var invoice = await _facturaVentaService.GetByIdAsync(id);
+            if (invoice == null) return NotFound();
+            return Ok(invoice);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSale([FromBody] Sale sale)
+        public async Task<IActionResult> Create(FacturaVentaDto facturaVentaDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var product = await _saleService.GetProductById(sale.ProductId);
-            if (product == null)
-            {
-                return NotFound($"No product found with ID {sale.ProductId}");
-            }
-
-            if (product.ProductDetail != null && sale.Quantity > product.ProductDetail.Stock)
-            {
-                return BadRequest("Insufficient stock for this sale.");
-            }
-
-            await _saleService.AddSale(sale);
-            return CreatedAtAction(nameof(GetSaleById), new { id = sale.Id }, sale);
+            await _facturaVentaService.AddInvoiceAsync(facturaVentaDto);
+            return CreatedAtAction(nameof(GetById), new { id = facturaVentaDto.Id }, facturaVentaDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSale(int id, [FromBody] Sale sale)
+        public async Task<IActionResult> Update(int id, FacturaVentaDto facturaVentaDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != sale.Id)
-            {
-                return BadRequest("ID mismatch");
-            }
-
-            await _saleService.UpdateSale(sale);
-            return NoContent();
+            await _facturaVentaService.UpdateInvoiceAsync(id, facturaVentaDto);
+            return Ok(facturaVentaDto);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSale(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var sale = await _saleService.GetSaleById(id);
-            if (sale == null)
-            {
-                return NotFound($"No sale found with ID {id}");
-            }
-            await _saleService.DeleteSale(id);
-            return NoContent();
+            await _facturaVentaService.DeleteInvoiceAsync(id);
+            return Ok();
         }
     }
 }
+
+

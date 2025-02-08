@@ -4,15 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Latiendita.Repositories
 {
-    public interface IProductRepository
-    {
-        Task<IEnumerable<Product>> GetProductsAsync();
-        Task<Product> GetProductByIdAsync(int id);
-        Task AddProductAsync(Product product);
-        Task UpdateProductAsync(int id, Product product);
-        Task DeleteProductAsync(int id);
-    }
-
     public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
@@ -60,7 +51,7 @@ namespace Latiendita.Repositories
             }
 
             var existingProduct = await GetProductByIdAsync(id);
-            
+
             _context.Entry(existingProduct).CurrentValues.SetValues(product);
             await _context.SaveChangesAsync();
         }
@@ -70,6 +61,31 @@ namespace Latiendita.Repositories
             var product = await GetProductByIdAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Product>> SearchAsync(string query)
+        {
+            return await _context.Products
+                .Where(p => p.Name.Contains(query))
+                .ToListAsync();
+        }
+
+        public async Task<(IEnumerable<Product> items, int totalItems, int totalPages)> GetAllAsync(int page, int size)
+        {
+            if (page <= 0 || size <= 0)
+            {
+                throw new ArgumentException("Page and size must be greater than zero.");
+            }
+
+            var totalItems = await _context.Products.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)size);
+
+            var items = await _context.Products
+                .Skip((page - 1) * size)
+                .Take(size)
+                .ToListAsync();
+
+            return (items, totalItems, totalPages);
         }
     }
 }
