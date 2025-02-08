@@ -31,10 +31,4 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/search", async (string query, ISearchService searchService) =>
-{
-    var results = await searchService.SearchProductsAsync(query);
-    return Results.Ok(results);
-});
-
 app.Run();
