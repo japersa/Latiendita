@@ -18,15 +18,10 @@ namespace Latiendita.Repositories
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<Product?> GetProductByIdAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                throw new KeyNotFoundException($"Product with ID {id} not found");
-            }
-            return product;
-        }
+    return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+}
 
         public async Task AddProductAsync(Product product)
         {
@@ -88,9 +83,10 @@ namespace Latiendita.Repositories
             return (items, totalItems, totalPages);
         }
 
-        public Task<Product> GetByIdAsync(int productId)
+        public async Task<Product?> GetByIdAsync(int productId)
+
         {
-            throw new NotImplementedException();
-        }
+    return await _context.Products.FindAsync(productId);
+}
     }
 }
