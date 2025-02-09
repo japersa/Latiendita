@@ -40,17 +40,28 @@ namespace Latiendita.Repositories
 
         public async Task UpdateProductAsync(int id, Product product)
         {
+           
+            if (id <= 0)
+            {
+            throw new ArgumentException("El ID del producto debe ser mayor que 0.");
+            }//se agrega condicion para que el ID no sea igual o menor que 0.
+
+            var existingProduct = await GetProductByIdAsync(id);
+
+            if (existingProduct == null)
+            {
+            throw new KeyNotFoundException($"El producto con ID {id} no existe.");
+            }
+
             if (product == null)
             {
-                throw new ArgumentNullException(nameof(product));
+            throw new ArgumentNullException(nameof(product));
             }
 
             if (id != product.Id)
             {
-                throw new ArgumentException("Product ID mismatch");
+                throw new ArgumentException($"El ID del producto en la URL ({id}) no coincide con el ID en el cuerpo ({product.Id}).");
             }
-
-            var existingProduct = await GetProductByIdAsync(id);
 
             _context.Entry(existingProduct).CurrentValues.SetValues(product);
             await _context.SaveChangesAsync();
