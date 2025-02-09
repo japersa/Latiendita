@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Latiendita.Repositories
 {
-        public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
 
@@ -88,9 +88,9 @@ namespace Latiendita.Repositories
             return (items, totalItems, totalPages);
         }
 
-        public Task<Product> GetByIdAsync(int productId)
+        public async Task<Product> GetByIdAsync(int productId)
         {
-            throw new NotImplementedException();
+            return await _context.Products.FindAsync(productId);
         }
     }
 }
