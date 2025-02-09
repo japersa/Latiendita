@@ -30,6 +30,7 @@ namespace Latiendita.Controllers
             {
                 return NotFound();
             }
+
             return Ok(category);
         }
 
@@ -54,6 +55,7 @@ namespace Latiendita.Controllers
             return Ok();
         }
     }
+
 }
 
 
