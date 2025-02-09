@@ -88,7 +88,7 @@ namespace Latiendita.Repositories
             return (items, totalItems, totalPages);
         }
 
-        public async Task<Product> GetByIdAsync(int productId)
+        public async Task<Product?> GetByIdAsync(int productId)
         {
             return await _context.Products.FindAsync(productId);
         }
