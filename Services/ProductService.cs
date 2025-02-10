@@ -77,5 +77,6 @@ namespace Latiendita.Services
         }
 
         public async Task DeleteAsync(int id) => await _productRepository.DeleteProductAsync(id);
+        
     }
 }
