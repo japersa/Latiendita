@@ -10,5 +10,8 @@ namespace Latiendita.Services
         Task AddCategoryAsync(CategoryDto categoryDto);
         Task UpdateCategoryAsync(int id, CategoryDto categoryDto);
         Task DeleteCategoryAsync(int id);
+
+        Task<IEnumerable<CategoryDto>> GetForCategoryAsync(string categoryDto);
+
     }
 }

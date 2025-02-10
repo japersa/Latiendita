@@ -1,6 +1,8 @@
 using Latiendita.Data;
+using Latiendita.Dtos;
 using Latiendita.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Latiendita.Repositories
 {
@@ -15,7 +17,7 @@ namespace Latiendita.Repositories
         public async Task<IEnumerable<Category>> GetAllAsync() => await _context.Categories.ToListAsync();
 
         public async Task<Category?> GetByIdAsync(int id) => await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
-        
+
         public async Task AddAsync(Category category)
         {
             _context.Categories.Add(category);
@@ -46,6 +48,24 @@ namespace Latiendita.Repositories
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
             }
+
         }
+
+        public async Task<IEnumerable<Category>> GetForCategoryAsync(string category)
+        {
+            try
+            {
+                return await _context.Categories
+                                 .Where(c => c.Name == category)
+                                 .ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al obtener la categoria", e);
+            }
+           
+        }
+
+      
     }
 }
