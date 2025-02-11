@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Latiendita.Repositories
 {
-        public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
 
@@ -18,10 +18,15 @@ namespace Latiendita.Repositories
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product?> GetProductByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-    return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-}
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                throw new KeyNotFoundException($"Product with ID {id} not found");
+            }
+            return product;
+        }
 
         public async Task AddProductAsync(Product product)
         {
@@ -35,6 +40,18 @@ namespace Latiendita.Repositories
 
         public async Task UpdateProductAsync(int id, Product product)
         {
+            if (id <= 0)
+            {
+                throw new ArgumentException("El ID del producto debe ser mayor que 0.");
+            }
+
+            var existingProduct = await GetProductByIdAsync(id);
+
+            if (existingProduct == null)
+            {
+                throw new KeyNotFoundException($"El producto con ID {id} no existe.");
+            }
+
             if (product == null)
             {
                 throw new ArgumentNullException(nameof(product));
@@ -42,10 +59,8 @@ namespace Latiendita.Repositories
 
             if (id != product.Id)
             {
-                throw new ArgumentException("Product ID mismatch");
+                throw new ArgumentException($"El ID del producto en la URL ({id}) no coincide con el ID en el cuerpo ({product.Id}).");
             }
-
-            var existingProduct = await GetProductByIdAsync(id);
 
             _context.Entry(existingProduct).CurrentValues.SetValues(product);
             await _context.SaveChangesAsync();
@@ -83,10 +98,39 @@ namespace Latiendita.Repositories
             return (items, totalItems, totalPages);
         }
 
-        public async Task<Product?> GetByIdAsync(int productId)
-
+        public async Task<Product> GetByIdAsync(int productId)
         {
-    return await _context.Products.FindAsync(productId);
-}
+            var product = await _context.Products
+                .Include(p => p.ProductDetail)
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (product == null)
+            {
+                throw new KeyNotFoundException($"El producto con ID {productId} no fue encontrado.");
+            }
+
+            return product;
+        }
+
+        // Método para actualizar el stock del producto
+        public async Task UpdateProductStockAsync(Product product)
+        {
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+
+            var existingProduct = await GetByIdAsync(product.Id);
+            if (existingProduct == null)
+            {
+                throw new KeyNotFoundException($"El producto con ID {product.Id} no fue encontrado.");
+            }
+
+            existingProduct.Stock = product.Stock;
+
+            _context.Products.Update(existingProduct);
+            await _context.SaveChangesAsync();
+        }
     }
 }

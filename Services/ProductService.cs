@@ -47,13 +47,14 @@ namespace Latiendita.Services
             await _productRepository.AddProductAsync(product);
         }
 
-        public async Task UpdateAsync(int Id, ProductDto productDto)
+        public async Task UpdateAsync(int id, ProductDto productDto)
         {
             var category = await _categoryRepository.GetByIdAsync(productDto.CategoryId);
             if (category == null) throw new Exception("Categoría no encontrada");
 
             var product = new Product
             {
+                Id = id, //se agrega id
                 Name = productDto.Name,
                 Price = productDto.Price,
                 CategoryId = productDto.CategoryId,
@@ -73,10 +74,9 @@ namespace Latiendita.Services
             };
 
 
-            await _productRepository.UpdateProductAsync(Id, product);
+            await _productRepository.UpdateProductAsync(id, product);
         }
 
         public async Task DeleteAsync(int id) => await _productRepository.DeleteProductAsync(id);
-        
     }
 }

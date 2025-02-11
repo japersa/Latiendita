@@ -15,7 +15,6 @@ namespace Latiendita.Repositories
             _context = context;
         }
  
-
         public Task CreateOrderAsync(Order order)
         {
            _context.Orders.Add(order);
@@ -43,6 +42,7 @@ namespace Latiendita.Repositories
             return await _context.Orders.Include(o=>o.Product).ToListAsync();
         }
 
+ 
      public async Task UpdateOrderAsync(Order order)
     {
        var existingOrder = await _context.Orders.FindAsync(order.Id);

@@ -8,7 +8,7 @@ namespace Latiendita.Controllers
     [Route("/api/products")]
     public class ProductController : ControllerBase
     {
-        private readonly  IProductService _productService;
+        private readonly IProductService _productService;
 
         public ProductController(IProductService productService)
         {
@@ -19,7 +19,7 @@ namespace Latiendita.Controllers
         public async Task<IActionResult> GetAll()
         {
             var products = await _productService.GetAllAsync();
-            return Ok(products);
+            return Ok(products.OrderBy(p => p.Id));
         }
 
         [HttpGet("{id}")]
@@ -55,6 +55,3 @@ namespace Latiendita.Controllers
         }
     }
 }
-
-
-
