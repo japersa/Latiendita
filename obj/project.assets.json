@@ -3920,23 +3920,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mcver\\.nuget\\packages\\": {},
+    "C:\\Users\\pipet\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mcver\\OneDrive\\Latiendita\\Latiendita\\Latiendita.csproj",
+      "projectUniqueName": "C:\\Users\\pipet\\Documents\\GitHub\\Latiendita\\Latiendita.csproj",
       "projectName": "Latiendita",
-      "projectPath": "C:\\Users\\mcver\\OneDrive\\Latiendita\\Latiendita\\Latiendita.csproj",
-      "packagesPath": "C:\\Users\\mcver\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mcver\\OneDrive\\Latiendita\\Latiendita\\obj\\",
+      "projectPath": "C:\\Users\\pipet\\Documents\\GitHub\\Latiendita\\Latiendita.csproj",
+      "packagesPath": "C:\\Users\\pipet\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pipet\\Documents\\GitHub\\Latiendita\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\mcver\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pipet\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

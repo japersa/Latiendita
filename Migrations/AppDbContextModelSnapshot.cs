@@ -77,6 +77,9 @@ namespace Latiendita.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<int?>("ProductDetailId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
 
@@ -84,13 +87,18 @@ namespace Latiendita.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("ProductDetailId");
+
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Latiendita.Models.ProductDetail", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
@@ -148,35 +156,6 @@ namespace Latiendita.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("Latiendita.Models.SaleDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SaleId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("SaleId");
-
-                    b.ToTable("SaleDetail");
-                });
-
             modelBuilder.Entity("Latiendita.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -221,7 +200,13 @@ namespace Latiendita.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Latiendita.Models.ProductDetail", "ProductDetail")
+                        .WithMany()
+                        .HasForeignKey("ProductDetailId");
+
                     b.Navigation("Category");
+
+                    b.Navigation("ProductDetail");
                 });
 
             modelBuilder.Entity("Latiendita.Models.ProductDetail", b =>
@@ -232,15 +217,7 @@ namespace Latiendita.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Latiendita.Models.Product", "Product")
-                        .WithOne("ProductDetail")
-                        .HasForeignKey("Latiendita.Models.ProductDetail", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Latiendita.Models.Sale", b =>
@@ -252,37 +229,6 @@ namespace Latiendita.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Latiendita.Models.SaleDetail", b =>
-                {
-                    b.HasOne("Latiendita.Models.Product", "Product")
-                        .WithMany("SaleDetails")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Latiendita.Models.Sale", "Sale")
-                        .WithMany("SaleDetails")
-                        .HasForeignKey("SaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Sale");
-                });
-
-            modelBuilder.Entity("Latiendita.Models.Product", b =>
-                {
-                    b.Navigation("ProductDetail");
-
-                    b.Navigation("SaleDetails");
-                });
-
-            modelBuilder.Entity("Latiendita.Models.Sale", b =>
-                {
-                    b.Navigation("SaleDetails");
                 });
 #pragma warning restore 612, 618
         }
