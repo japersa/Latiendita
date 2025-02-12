@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Latiendita.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250208124716_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250209203601_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

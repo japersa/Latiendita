@@ -54,6 +54,7 @@ namespace Latiendita.Services
 
             var product = new Product
             {
+                Id = id, //se agrega id
                 Name = productDto.Name,
                 Price = productDto.Price,
                 CategoryId = productDto.CategoryId,

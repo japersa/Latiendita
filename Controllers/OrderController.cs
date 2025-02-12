@@ -30,11 +30,11 @@ namespace Latiendita.Controllers
             return Ok(order);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody]OrderDto OrderDto)
+       [HttpPost]
+        public async Task<IActionResult> Create([FromBody] OrderDto orderDto)
         {
-            await _orderService.CreateOrderAsync(OrderDto);
-            return CreatedAtAction(nameof(GetById), new { id = OrderDto.Id }, OrderDto);
+        await _orderService.CreateOrderAsync(orderDto);
+        return Ok(new { message = "Orden creada correctamente" });
         }
 
         [HttpPut("{id}")]
