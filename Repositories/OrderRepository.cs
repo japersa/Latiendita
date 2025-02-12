@@ -43,17 +43,15 @@ namespace Latiendita.Repositories
         }
 
  
-        public async Task UpdateOrderAsync(Order order)
+     public async Task UpdateOrderAsync(Order order)
+    {
+       var existingOrder = await _context.Orders.FindAsync(order.Id);
+       if (existingOrder != null)
         {
-            var existingOrder = await _context.Orders.FindAsync(order.Id);
- 
-            if (existingOrder != null)
-            {
-                existingOrder.Product = order.Product;
-                existingOrder.ProductId = order.ProductId;
-                existingOrder.Quantity = order.Quantity;
-                await _context.SaveChangesAsync();
-            }
+        existingOrder.ProductId = order.ProductId;
+        existingOrder.Quantity = order.Quantity;
+        await _context.SaveChangesAsync();
+          }
+        }
         }
     }
-}
