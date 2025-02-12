@@ -79,6 +79,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Latiendita.Controllers.CategoryController",
+    "Method": "GetForCategory",
+    "RelativePath": "api/categories/name/{category}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "category",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Latiendita.Controllers.OrderController",
     "Method": "GetAll",
     "RelativePath": "api/order",
