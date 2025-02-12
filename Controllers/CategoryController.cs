@@ -1,4 +1,5 @@
 ﻿using Latiendita.Dtos;
+using Latiendita.Models;
 using Latiendita.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,12 @@ namespace Latiendita.Controllers
         public async Task<IActionResult> GetAll()
         {
             var categories = await _categoryService.GetCategoriesAsync();
+            return Ok(categories);
+        }
+        [HttpGet("name/{category}")]
+        public async Task<IActionResult> GetForCategory(String category)
+        {
+            var categories = await _categoryService.GetForCategoryAsync(category);
             return Ok(categories);
         }
 

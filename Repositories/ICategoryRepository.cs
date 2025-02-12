@@ -1,3 +1,4 @@
+using Latiendita.Dtos;
 using Latiendita.Models;
 
 namespace Latiendita.Repositories
@@ -9,5 +10,8 @@ namespace Latiendita.Repositories
         Task AddAsync(Category category);
         Task UpdateAsync(int id, Category category);
         Task DeleteAsync(int id);
+
+        Task<IEnumerable<Category>> GetForCategoryAsync(string category);
+      
     }
 }

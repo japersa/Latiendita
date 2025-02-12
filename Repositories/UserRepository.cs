@@ -43,19 +43,18 @@ namespace Latiendita.Repositories
 
         public async Task UpdateUserAsync(int id, User user)
         {
-            if (user == null)
+            var userExist = await _context.Users
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (userExist == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new KeyNotFoundException($"El usuario con ID {id} no existe.");
             }
 
-            if (id != user.Id)
-            {
-                throw new ArgumentException("User ID mismatch");
-            }
+            userExist.Name = user.Name;
+            userExist.UserName = user.UserName;
+            userExist.Password = user.Password;
 
-            var existingUser = await GetUserByIdAsync(id);
-            
-            _context.Entry(existingUser).CurrentValues.SetValues(user);
             await _context.SaveChangesAsync();
         }
 

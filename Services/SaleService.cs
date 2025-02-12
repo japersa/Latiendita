@@ -7,7 +7,7 @@ namespace Latiendita.Services
     public class SaleService : ISaleService
     {
         private readonly ISaleRepository _saleRepository;
-        private readonly IProductRepository _productRepository; // Agregado
+        private readonly IProductRepository _productRepository;
 
         public SaleService(ISaleRepository saleRepository, IProductRepository productRepository)
         {
@@ -27,13 +27,15 @@ namespace Latiendita.Services
 
         public async Task CreateSaleAsync(SaleDto saleDto)
         {
-            var product = await _productRepository.GetByIdAsync(saleDto.ProductId); // Usar saleDto.ProductId
-            if (product == null) throw new Exception("Producto no encontrado");
+            var product = await _productRepository.GetByIdAsync(saleDto.ProductId);
+            if (product == null)
+                throw new Exception("Producto no encontrado");
 
             var sale = new Sale
             {
-                Product = product, // Asignar directamente el producto
-                Quantity = saleDto.Quantity
+                Quantity = saleDto.Quantity,
+                ProductId = saleDto.ProductId, // Se asigna el ProductId
+                Product = product              // Se asigna el producto
             };
 
             await _saleRepository.AddSaleAsync(sale);
@@ -42,13 +44,15 @@ namespace Latiendita.Services
         public async Task UpdateSaleAsync(int id, SaleDto saleDto)
         {
             var product = await _productRepository.GetByIdAsync(saleDto.ProductId);
-            if (product == null) throw new Exception("Producto no encontrado");
+            if (product == null)
+                throw new Exception("Producto no encontrado");
 
             var sale = new Sale
             {
                 Id = id,
-                Product = product, // Asignar directamente el producto
-                Quantity = saleDto.Quantity
+                Quantity = saleDto.Quantity,
+                ProductId = saleDto.ProductId, // Se asigna el ProductId
+                Product = product              // Se asigna el producto
             };
 
             await _saleRepository.UpdateSaleAsync(id, sale);
@@ -57,6 +61,11 @@ namespace Latiendita.Services
         public async Task DeleteSaleAsync(int id)
         {
             await _saleRepository.DeleteSaleAsync(id);
+        }
+
+        public Task GetSalesAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

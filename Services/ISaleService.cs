@@ -10,6 +10,7 @@ namespace Latiendita.Services
         Task CreateSaleAsync(SaleDto saleDto);
         Task UpdateSaleAsync(int id, SaleDto saleDto);
         Task DeleteSaleAsync(int id);
+        Task GetSalesAsync();
     }
 
 }
