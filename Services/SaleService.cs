@@ -31,6 +31,8 @@ namespace Latiendita.Services
             if (product == null)
                 throw new Exception("Producto no encontrado");
 
+            ValidateStock(product, saleDto.Quantity);
+
             var sale = new Sale
             {
                 Quantity = saleDto.Quantity,
@@ -38,14 +40,32 @@ namespace Latiendita.Services
                 Product = product              // Se asigna el producto
             };
 
+            product.Stock = product.Stock - saleDto.Quantity;
+
+            await _productRepository.UpdateProductStockAsync(product);
+
             await _saleRepository.AddSaleAsync(sale);
         }
 
         public async Task UpdateSaleAsync(int id, SaleDto saleDto)
         {
+
+            var Searchsale = await _saleRepository.GetSaleByIdAsync(id);
+            if (Searchsale == null)
+                throw new Exception("Venta no encontrada");
+
             var product = await _productRepository.GetByIdAsync(saleDto.ProductId);
             if (product == null)
                 throw new Exception("Producto no encontrado");
+
+            var CalculationQuantity = saleDto.Quantity - Searchsale.Quantity;
+
+            ValidateStock(product, CalculationQuantity);
+
+            Searchsale.Quantity = saleDto.Quantity;
+
+            product.Stock = product.Stock - CalculationQuantity;
+
 
             var sale = new Sale
             {
@@ -56,16 +76,36 @@ namespace Latiendita.Services
             };
 
             await _saleRepository.UpdateSaleAsync(id, sale);
+            await _productRepository.UpdateProductStockAsync(product);
         }
 
         public async Task DeleteSaleAsync(int id)
         {
+
+            var Searchsale = await _saleRepository.GetSaleByIdAsync(id);
+            if (Searchsale == null)
+                throw new Exception("Venta no encontrada");
+
+            var product = await _productRepository.GetByIdAsync(Searchsale.ProductId);
+            if (product == null)
+                throw new Exception("Producto no encontrado");
+
+            product.Stock = product.Stock + Searchsale.Quantity;
+
+            await _productRepository.UpdateProductStockAsync(product);
+
             await _saleRepository.DeleteSaleAsync(id);
         }
 
         public Task GetSalesAsync()
         {
             throw new NotImplementedException();
+        }
+
+        private void ValidateStock(Product product, int quantity)
+        {
+            if (product.Stock < quantity)
+                throw new Exception("No hay suficiente stock");
         }
     }
 }
