@@ -31,8 +31,7 @@ namespace Latiendita.Services
             if (product == null)
                 throw new Exception("Producto no encontrado");
 
-            if (product.ProductDetail.Stock < saleDto.Quantity)
-                throw new Exception("Stock insuficiente para la venta");
+            ValidateStock(product, saleDto.Quantity);
 
             var sale = new Sale
             {
@@ -41,7 +40,7 @@ namespace Latiendita.Services
                 Product = product              // Se asigna el producto
             };
 
-            product.ProductDetail.Stock = product.ProductDetail.Stock - saleDto.Quantity;
+            product.Stock = product.Stock - saleDto.Quantity;
 
             await _productRepository.UpdateProductStockAsync(product);
 
@@ -61,12 +60,11 @@ namespace Latiendita.Services
 
             var CalculationQuantity = saleDto.Quantity - Searchsale.Quantity;
 
-            if (product.ProductDetail.Stock < CalculationQuantity)
-                throw new Exception("Stock insuficiente para la venta");
+            ValidateStock(product, CalculationQuantity);
 
             Searchsale.Quantity = saleDto.Quantity;
 
-            product.ProductDetail.Stock = product.ProductDetail.Stock - CalculationQuantity;
+            product.Stock = product.Stock - CalculationQuantity;
 
 
             var sale = new Sale
@@ -92,7 +90,7 @@ namespace Latiendita.Services
             if (product == null)
                 throw new Exception("Producto no encontrado");
 
-            product.ProductDetail.Stock = product.ProductDetail.Stock + Searchsale.Quantity;
+            product.Stock = product.Stock + Searchsale.Quantity;
 
             await _productRepository.UpdateProductStockAsync(product);
 
@@ -102,6 +100,12 @@ namespace Latiendita.Services
         public Task GetSalesAsync()
         {
             throw new NotImplementedException();
+        }
+
+        private void ValidateStock(Product product, int quantity)
+        {
+            if (product.Stock < quantity)
+                throw new Exception("No hay suficiente stock");
         }
     }
 }
