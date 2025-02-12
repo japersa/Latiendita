@@ -13,6 +13,8 @@ namespace Latiendita.Models
         public int CategoryId { get; set; }
         public required Category Category { get; set; }
 
-        public decimal Price { get; set; } 
+        public Product? Product { get; set; }
+
+        public decimal Price { get; set; }
     }
 }

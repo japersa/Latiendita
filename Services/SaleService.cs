@@ -31,6 +31,9 @@ namespace Latiendita.Services
             if (product == null)
                 throw new Exception("Producto no encontrado");
 
+            if (product.ProductDetail.Stock < saleDto.Quantity)
+                throw new Exception("Stock insuficiente para la venta");
+
             var sale = new Sale
             {
                 Quantity = saleDto.Quantity,
@@ -38,14 +41,33 @@ namespace Latiendita.Services
                 Product = product              // Se asigna el producto
             };
 
+            product.ProductDetail.Stock = product.ProductDetail.Stock - saleDto.Quantity;
+
+            await _productRepository.UpdateProductStockAsync(product);
+
             await _saleRepository.AddSaleAsync(sale);
         }
 
         public async Task UpdateSaleAsync(int id, SaleDto saleDto)
         {
+
+            var Searchsale = await _saleRepository.GetSaleByIdAsync(id);
+            if (Searchsale == null)
+                throw new Exception("Venta no encontrada");
+
             var product = await _productRepository.GetByIdAsync(saleDto.ProductId);
             if (product == null)
                 throw new Exception("Producto no encontrado");
+
+            var CalculationQuantity = saleDto.Quantity - Searchsale.Quantity;
+
+            if (product.ProductDetail.Stock < CalculationQuantity)
+                throw new Exception("Stock insuficiente para la venta");
+
+            Searchsale.Quantity = saleDto.Quantity;
+
+            product.ProductDetail.Stock = product.ProductDetail.Stock - CalculationQuantity;
+
 
             var sale = new Sale
             {
@@ -56,10 +78,24 @@ namespace Latiendita.Services
             };
 
             await _saleRepository.UpdateSaleAsync(id, sale);
+            await _productRepository.UpdateProductStockAsync(product);
         }
 
         public async Task DeleteSaleAsync(int id)
         {
+
+            var Searchsale = await _saleRepository.GetSaleByIdAsync(id);
+            if (Searchsale == null)
+                throw new Exception("Venta no encontrada");
+
+            var product = await _productRepository.GetByIdAsync(Searchsale.ProductId);
+            if (product == null)
+                throw new Exception("Producto no encontrado");
+
+            product.ProductDetail.Stock = product.ProductDetail.Stock + Searchsale.Quantity;
+
+            await _productRepository.UpdateProductStockAsync(product);
+
             await _saleRepository.DeleteSaleAsync(id);
         }
 
