@@ -16,7 +16,12 @@ namespace Latiendita.Services
         }
 
         public async Task<IEnumerable<Product>> GetAllAsync() => await _productRepository.GetProductsAsync();
-        public async Task<Product> GetByIdAsync(int id) => await _productRepository.GetProductByIdAsync(id);
+        public async Task<Product> GetByIdAsync(int id)
+        {
+            var product = await _productRepository.GetProductByIdAsync(id);
+            if (product == null) throw new Exception("Producto no encontrado");
+            return product;
+        }
 
         public async Task AddAsync(ProductDto productDto)
         {
@@ -28,7 +33,7 @@ namespace Latiendita.Services
                 Name = productDto.Name,
                 Price = productDto.Price,
                 CategoryId = productDto.CategoryId,
-                Category = category, // Se obtiene de la BD
+                Category = category, 
                 ProductDetail = productDto.ProductDetail != null
     ? new ProductDetail
     {

@@ -12,8 +12,18 @@ namespace Latiendita.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20250211203758_AddStockColumn")]
-    partial class AddStockColumn
+    partial class AddStockColumn : Migration
     {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            // Implementation for adding the Stock column
+        }
+    
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            // Implementation for removing the Stock column
+        }
+    
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
