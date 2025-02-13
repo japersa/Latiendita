@@ -12,7 +12,16 @@ namespace Latiendita.Repositories
 
         public async Task CreateOrderAsync(Order order)
         {
+            var product = await _context.Products.FindAsync(order.ProductId);
+            if (product == null)
+                throw new KeyNotFoundException("Producto no encontrado");
+
+            if (product.Stock < order.Quantity)
+                throw new InvalidOperationException("Stock insuficiente");
+
+            product.Stock -= order.Quantity;  // Se descuenta del inventario
             _context.Orders.Add(order);
+
             await _context.SaveChangesAsync();
         }
 
@@ -49,6 +58,16 @@ namespace Latiendita.Repositories
                 existingOrder.Quantity = order.Quantity;
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task CreatePurchaseAsync(int productId, int quantity)
+        {
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null)
+                throw new KeyNotFoundException("Producto no encontrado");
+
+            product.Stock += quantity;  // Se incrementa el inventario
+            await _context.SaveChangesAsync();
         }
     }
 }

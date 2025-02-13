@@ -35,6 +35,8 @@ namespace Latiendita.Repositories
 
         public async Task UpdateProductAsync(int id, Product product)
         {
+            Console.WriteLine($"ID en URL: {id}, ID en body: {product.Id}");
+
             if (product == null)
             {
                 throw new ArgumentNullException(nameof(product));
@@ -46,6 +48,14 @@ namespace Latiendita.Repositories
             }
 
             var existingProduct = await GetProductByIdAsync(id);
+
+            if (existingProduct == null)
+            {
+                throw new Exception("Producto no encontrado en la base de datos");
+            }
+
+            // Validación que verifica si `Stock` está actualizando
+            Console.WriteLine($"Stock actual: {existingProduct.Stock}, Nuevo Stock: {product.Stock}");
 
             _context.Entry(existingProduct).CurrentValues.SetValues(product);
             await _context.SaveChangesAsync();
