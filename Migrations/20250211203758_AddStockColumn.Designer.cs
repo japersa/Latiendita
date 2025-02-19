@@ -2,6 +2,7 @@
 using Latiendita.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,21 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Latiendita.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250211203758_AddStockColumn")]
+    partial class AddStockColumn : Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            // Implementation for adding the Stock column
+        }
+    
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            // Implementation for removing the Stock column
+        }
+    
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
