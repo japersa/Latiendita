@@ -285,3 +285,14 @@ C:\Users\VICTOR\Desktop\Latiendita\Latiendita\obj\Debug\net9.0\staticwebassets.p
 C:\Users\VICTOR\Desktop\Latiendita\Latiendita\obj\Debug\net9.0\Latiendita.csproj.Up2Date
 C:\Users\VICTOR\Desktop\Latiendita\Latiendita\obj\Debug\net9.0\Latiendita.genruntimeconfig.cache
 C:\Users\VICTOR\Desktop\Latiendita\Latiendita\obj\Debug\net9.0\ref\Latiendita.dll
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.csproj.AssemblyReference.cache
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.AssemblyInfoInputs.cache
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.AssemblyInfo.cs
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.csproj.CoreCompileInputs.cache
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.sourcelink.json
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.dll
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\refint\Latiendita.dll
+C:\Users\aleja\OneDrive\Imágenes\ALEJO ESTUDIO\EAFIT\ModuloIII\LaTiendita\Latiendita\obj\Debug\net9.0\Latiendita.pdb
